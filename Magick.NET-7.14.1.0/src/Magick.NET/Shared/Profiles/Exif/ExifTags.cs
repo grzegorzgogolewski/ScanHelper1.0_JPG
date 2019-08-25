@@ -1,0 +1,284 @@
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+//
+// Licensed under the ImageMagick License (the "License"); you may not use this file except in
+// compliance with the License. You may obtain a copy of the License at
+//
+//   https://www.imagemagick.org/script/license.php
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
+
+using System.Diagnostics.CodeAnalysis;
+
+namespace ImageMagick
+{
+    internal static class ExifTags
+    {
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
+        public static ExifParts GetPart(ExifTag tag)
+        {
+            switch (tag)
+            {
+                case ExifTag.SubfileType:
+                case ExifTag.OldSubfileType:
+                case ExifTag.ImageWidth:
+                case ExifTag.ImageLength:
+                case ExifTag.BitsPerSample:
+                case ExifTag.Compression:
+                case ExifTag.PhotometricInterpretation:
+                case ExifTag.Thresholding:
+                case ExifTag.CellWidth:
+                case ExifTag.CellLength:
+                case ExifTag.FillOrder:
+                case ExifTag.DocumentName:
+                case ExifTag.ImageDescription:
+                case ExifTag.Make:
+                case ExifTag.Model:
+                case ExifTag.StripOffsets:
+                case ExifTag.Orientation:
+                case ExifTag.SamplesPerPixel:
+                case ExifTag.RowsPerStrip:
+                case ExifTag.StripByteCounts:
+                case ExifTag.MinSampleValue:
+                case ExifTag.MaxSampleValue:
+                case ExifTag.XResolution:
+                case ExifTag.YResolution:
+                case ExifTag.PlanarConfiguration:
+                case ExifTag.PageName:
+                case ExifTag.XPosition:
+                case ExifTag.YPosition:
+                case ExifTag.FreeOffsets:
+                case ExifTag.FreeByteCounts:
+                case ExifTag.GrayResponseUnit:
+                case ExifTag.GrayResponseCurve:
+                case ExifTag.T4Options:
+                case ExifTag.T6Options:
+                case ExifTag.ResolutionUnit:
+                case ExifTag.PageNumber:
+                case ExifTag.ColorResponseUnit:
+                case ExifTag.TransferFunction:
+                case ExifTag.Software:
+                case ExifTag.DateTime:
+                case ExifTag.Artist:
+                case ExifTag.HostComputer:
+                case ExifTag.Predictor:
+                case ExifTag.WhitePoint:
+                case ExifTag.PrimaryChromaticities:
+                case ExifTag.ColorMap:
+                case ExifTag.HalftoneHints:
+                case ExifTag.TileWidth:
+                case ExifTag.TileLength:
+                case ExifTag.TileOffsets:
+                case ExifTag.TileByteCounts:
+                case ExifTag.BadFaxLines:
+                case ExifTag.CleanFaxData:
+                case ExifTag.ConsecutiveBadFaxLines:
+                case ExifTag.InkSet:
+                case ExifTag.InkNames:
+                case ExifTag.NumberOfInks:
+                case ExifTag.DotRange:
+                case ExifTag.TargetPrinter:
+                case ExifTag.ExtraSamples:
+                case ExifTag.SampleFormat:
+                case ExifTag.SMinSampleValue:
+                case ExifTag.SMaxSampleValue:
+                case ExifTag.TransferRange:
+                case ExifTag.ClipPath:
+                case ExifTag.XClipPathUnits:
+                case ExifTag.YClipPathUnits:
+                case ExifTag.Indexed:
+                case ExifTag.JPEGTables:
+                case ExifTag.OPIProxy:
+                case ExifTag.ProfileType:
+                case ExifTag.FaxProfile:
+                case ExifTag.CodingMethods:
+                case ExifTag.VersionYear:
+                case ExifTag.ModeNumber:
+                case ExifTag.Decode:
+                case ExifTag.DefaultImageColor:
+                case ExifTag.T82ptions:
+                case ExifTag.JPEGProc:
+                case ExifTag.JPEGInterchangeFormat:
+                case ExifTag.JPEGInterchangeFormatLength:
+                case ExifTag.JPEGRestartInterval:
+                case ExifTag.JPEGLosslessPredictors:
+                case ExifTag.JPEGPointTransforms:
+                case ExifTag.JPEGQTables:
+                case ExifTag.JPEGDCTables:
+                case ExifTag.JPEGACTables:
+                case ExifTag.YCbCrCoefficients:
+                case ExifTag.YCbCrPositioning:
+                case ExifTag.YCbCrSubsampling:
+                case ExifTag.ReferenceBlackWhite:
+                case ExifTag.StripRowCounts:
+                case ExifTag.XMP:
+                case ExifTag.Rating:
+                case ExifTag.RatingPercent:
+                case ExifTag.ImageID:
+                case ExifTag.CFARepeatPatternDim:
+                case ExifTag.CFAPattern2:
+                case ExifTag.BatteryLevel:
+                case ExifTag.Copyright:
+                case ExifTag.MDFileTag:
+                case ExifTag.MDScalePixel:
+                case ExifTag.MDLabName:
+                case ExifTag.MDSampleInfo:
+                case ExifTag.MDPrepDate:
+                case ExifTag.MDPrepTime:
+                case ExifTag.MDFileUnits:
+                case ExifTag.PixelScale:
+                case ExifTag.IntergraphPacketData:
+                case ExifTag.IntergraphRegisters:
+                case ExifTag.IntergraphMatrix:
+                case ExifTag.ModelTiePoint:
+                case ExifTag.SEMInfo:
+                case ExifTag.ModelTransform:
+                case ExifTag.ImageLayer:
+                case ExifTag.FaxRecvParams:
+                case ExifTag.FaxSubaddress:
+                case ExifTag.FaxRecvTime:
+                case ExifTag.ImageSourceData:
+                case ExifTag.XPTitle:
+                case ExifTag.XPComment:
+                case ExifTag.XPAuthor:
+                case ExifTag.XPKeywords:
+                case ExifTag.XPSubject:
+                case ExifTag.GDALMetadata:
+                case ExifTag.GDALNoData:
+                    return ExifParts.IfdTags;
+
+                case ExifTag.ExposureTime:
+                case ExifTag.FNumber:
+                case ExifTag.ExposureProgram:
+                case ExifTag.SpectralSensitivity:
+                case ExifTag.ISOSpeedRatings:
+                case ExifTag.OECF:
+                case ExifTag.Interlace:
+                case ExifTag.TimeZoneOffset:
+                case ExifTag.SelfTimerMode:
+                case ExifTag.SensitivityType:
+                case ExifTag.StandardOutputSensitivity:
+                case ExifTag.RecommendedExposureIndex:
+                case ExifTag.ISOSpeed:
+                case ExifTag.ISOSpeedLatitudeyyy:
+                case ExifTag.ISOSpeedLatitudezzz:
+                case ExifTag.ExifVersion:
+                case ExifTag.DateTimeOriginal:
+                case ExifTag.DateTimeDigitized:
+                case ExifTag.OffsetTime:
+                case ExifTag.OffsetTimeOriginal:
+                case ExifTag.OffsetTimeDigitized:
+                case ExifTag.ComponentsConfiguration:
+                case ExifTag.CompressedBitsPerPixel:
+                case ExifTag.ShutterSpeedValue:
+                case ExifTag.ApertureValue:
+                case ExifTag.BrightnessValue:
+                case ExifTag.ExposureBiasValue:
+                case ExifTag.MaxApertureValue:
+                case ExifTag.SubjectDistance:
+                case ExifTag.MeteringMode:
+                case ExifTag.LightSource:
+                case ExifTag.Flash:
+                case ExifTag.FocalLength:
+                case ExifTag.FlashEnergy2:
+                case ExifTag.SpatialFrequencyResponse2:
+                case ExifTag.Noise:
+                case ExifTag.FocalPlaneXResolution2:
+                case ExifTag.FocalPlaneYResolution2:
+                case ExifTag.FocalPlaneResolutionUnit2:
+                case ExifTag.ImageNumber:
+                case ExifTag.SecurityClassification:
+                case ExifTag.ImageHistory:
+                case ExifTag.SubjectArea:
+                case ExifTag.ExposureIndex2:
+                case ExifTag.TIFFEPStandardID:
+                case ExifTag.SensingMethod2:
+                case ExifTag.MakerNote:
+                case ExifTag.UserComment:
+                case ExifTag.SubsecTime:
+                case ExifTag.SubsecTimeOriginal:
+                case ExifTag.SubsecTimeDigitized:
+                case ExifTag.AmbientTemperature:
+                case ExifTag.Humidity:
+                case ExifTag.Pressure:
+                case ExifTag.WaterDepth:
+                case ExifTag.Acceleration:
+                case ExifTag.CameraElevationAngle:
+                case ExifTag.FlashpixVersion:
+                case ExifTag.ColorSpace:
+                case ExifTag.PixelXDimension:
+                case ExifTag.PixelYDimension:
+                case ExifTag.RelatedSoundFile:
+                case ExifTag.FlashEnergy:
+                case ExifTag.SpatialFrequencyResponse:
+                case ExifTag.FocalPlaneXResolution:
+                case ExifTag.FocalPlaneYResolution:
+                case ExifTag.FocalPlaneResolutionUnit:
+                case ExifTag.SubjectLocation:
+                case ExifTag.ExposureIndex:
+                case ExifTag.SensingMethod:
+                case ExifTag.FileSource:
+                case ExifTag.SceneType:
+                case ExifTag.CFAPattern:
+                case ExifTag.CustomRendered:
+                case ExifTag.ExposureMode:
+                case ExifTag.WhiteBalance:
+                case ExifTag.DigitalZoomRatio:
+                case ExifTag.FocalLengthIn35mmFilm:
+                case ExifTag.SceneCaptureType:
+                case ExifTag.GainControl:
+                case ExifTag.Contrast:
+                case ExifTag.Saturation:
+                case ExifTag.Sharpness:
+                case ExifTag.DeviceSettingDescription:
+                case ExifTag.SubjectDistanceRange:
+                case ExifTag.ImageUniqueID:
+                case ExifTag.OwnerName:
+                case ExifTag.SerialNumber:
+                case ExifTag.LensInfo:
+                case ExifTag.LensMake:
+                case ExifTag.LensModel:
+                case ExifTag.LensSerialNumber:
+                    return ExifParts.ExifTags;
+
+                case ExifTag.GPSVersionID:
+                case ExifTag.GPSLatitudeRef:
+                case ExifTag.GPSLatitude:
+                case ExifTag.GPSLongitudeRef:
+                case ExifTag.GPSLongitude:
+                case ExifTag.GPSAltitudeRef:
+                case ExifTag.GPSAltitude:
+                case ExifTag.GPSTimestamp:
+                case ExifTag.GPSSatellites:
+                case ExifTag.GPSStatus:
+                case ExifTag.GPSMeasureMode:
+                case ExifTag.GPSDOP:
+                case ExifTag.GPSSpeedRef:
+                case ExifTag.GPSSpeed:
+                case ExifTag.GPSTrackRef:
+                case ExifTag.GPSTrack:
+                case ExifTag.GPSImgDirectionRef:
+                case ExifTag.GPSImgDirection:
+                case ExifTag.GPSMapDatum:
+                case ExifTag.GPSDestLatitudeRef:
+                case ExifTag.GPSDestLatitude:
+                case ExifTag.GPSDestLongitudeRef:
+                case ExifTag.GPSDestLongitude:
+                case ExifTag.GPSDestBearingRef:
+                case ExifTag.GPSDestBearing:
+                case ExifTag.GPSDestDistanceRef:
+                case ExifTag.GPSDestDistance:
+                case ExifTag.GPSProcessingMethod:
+                case ExifTag.GPSAreaInformation:
+                case ExifTag.GPSDateStamp:
+                case ExifTag.GPSDifferential:
+                    return ExifParts.GpsTags;
+
+                default:
+                    return ExifParts.None;
+            }
+        }
+    }
+}

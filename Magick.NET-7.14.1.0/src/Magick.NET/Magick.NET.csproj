@@ -1,0 +1,191 @@
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup>
+    <TargetFrameworks>net20;net40;netstandard13;netstandard20</TargetFrameworks>
+    <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyVersion>7.14.1.0</AssemblyVersion>
+    <FileVersion>7.14.1.0</FileVersion>
+    <Version>7.14.1.0</Version>
+    <Authors>Dirk Lemstra</Authors>
+    <Copyright>Copyright 2013-2019 Dirk Lemstra</Copyright>
+    <RunCodeAnalysis Condition="'$(Configuration)|$(TargetFramework)' == 'ReleaseQ16|net40'">true</RunCodeAnalysis>
+    <CodeAnalysisCulture>en-US</CodeAnalysisCulture>
+    <LangVersion>latest</LangVersion>
+    <Platforms>x86;x64;AnyCPU</Platforms>
+    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;TestQ8-OpenMP;TestQ16-OpenMP;TestQ16-HDRI-OpenMP;ReleaseQ8;ReleaseQ8-OpenMP;ReleaseQ16;ReleaseQ16-OpenMP;ReleaseQ16-HDRI;ReleaseQ16-HDRI-OpenMP</Configurations>
+    <RootNamespace>ImageMagick</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q8'))">
+    <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q8</QuantumType>
+    <QuantumName>Q8</QuantumName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q8-OpenMP'))">
+    <DefineConstants>Q8;OPENMP;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q8</QuantumType>
+    <QuantumName>Q8-OpenMP</QuantumName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q16'))">
+    <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q16</QuantumType>
+    <QuantumName>Q16</QuantumName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q16-OpenMP'))">
+    <DefineConstants>Q16;OPENMP;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q16</QuantumType>
+    <QuantumName>Q16-OpenMP</QuantumName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q16-HDRI'))">
+    <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q16-HDRI</QuantumType>
+    <QuantumName>Q16-HDRI</QuantumName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q16-HDRI-OpenMP'))">
+    <DefineConstants>Q16HDRI;OPENMP;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q16-HDRI</QuantumType>
+    <QuantumName>Q16-HDRI-OpenMP</QuantumName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="!$(Configuration.Contains('Release'))">
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.Contains('Release'))">
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
+    <CodeAnalysisTreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</CodeAnalysisTreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
+    <DefineConstants>$(DefineConstants);WINDOWS_BUILD</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition="!$(TargetFramework.StartsWith('netstandard'))">
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard13'">
+    <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
+    <AdditionalFiles Include="..\Magick.NET.ruleset" Link="Magick.NET.ruleset" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Platform)' == 'x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>Magick.NET-$(QuantumName)-$(Platform)</AssemblyName>
+    <AssemblyTitle>Magick.NET $(QuantumName) $(Platform) $(TargetFrameWork)</AssemblyTitle>
+    <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-$(QuantumName)-$(Platform).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(Platform)' == 'AnyCPU' and !$(TargetFramework.StartsWith('netstandard'))">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\libraries\Magick.Native-$(QuantumName)-x86.gz">
+      <LogicalName>ImageMagick.Resources.Library.Magick.Native_x86.gz</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\libraries\Magick.Native-$(QuantumName)-x64.gz">
+      <LogicalName>ImageMagick.Resources.Library.Magick.Native_x64.gz</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(Configuration.Contains('Release'))">
+    <Compile Remove="Properties\InternalsVisibleTo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc">
+      <LogicalName>ImageMagick.Resources.ColorProfiles.CMYK.CoatedFOGRA39.icc</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc">
+      <LogicalName>ImageMagick.Resources.ColorProfiles.CMYK.USWebCoatedSWOP.icc</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ColorProfiles\RGB\AdobeRGB1998.icc">
+      <LogicalName>ImageMagick.Resources.ColorProfiles.RGB.AdobeRGB1998.icc</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ColorProfiles\RGB\AppleRGB.icc">
+      <LogicalName>ImageMagick.Resources.ColorProfiles.RGB.AppleRGB.icc</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ColorProfiles\RGB\ColorMatchRGB.icc">
+      <LogicalName>ImageMagick.Resources.ColorProfiles.RGB.ColorMatchRGB.icc</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ColorProfiles\RGB\SRGB.icm">
+      <LogicalName>ImageMagick.Resources.ColorProfiles.RGB.SRGB.icm</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Release$(QuantumType)\MagickScript.xsd">
+      <LogicalName>ImageMagick.Resources.MagickScript.xsd</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\colors.xml">
+      <LogicalName>ImageMagick.Resources.Xml.colors.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\configure.xml">
+      <LogicalName>ImageMagick.Resources.Xml.configure.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\delegates.xml">
+      <LogicalName>ImageMagick.Resources.Xml.delegates.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\english.xml">
+      <LogicalName>ImageMagick.Resources.Xml.english.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\locale.xml">
+      <LogicalName>ImageMagick.Resources.Xml.locale.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\log.xml">
+      <LogicalName>ImageMagick.Resources.Xml.log.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\policy.xml">
+      <LogicalName>ImageMagick.Resources.Xml.policy.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\thresholds.xml">
+      <LogicalName>ImageMagick.Resources.Xml.thresholds.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\type.xml">
+      <LogicalName>ImageMagick.Resources.Xml.type.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\type-ghostscript.xml">
+      <LogicalName>ImageMagick.Resources.Xml.type-ghostscript.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
